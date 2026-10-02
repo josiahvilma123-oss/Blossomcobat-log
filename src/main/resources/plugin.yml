@@ -1,0 +1,25 @@
+name: BlossomCombat
+version: 1.0.0
+main: com.blossomsmp.combat.BlossomCombat
+api-version: '1.21'
+author: BlossomSMP
+description: Combat tagging and combat-log punishment for Blossom SMP.
+
+commands:
+  combat:
+    description: See how long you are in combat
+    aliases: [ct, combattime]
+  combatlog:
+    description: Admin combat commands
+    aliases: [combatadmin]
+
+permissions:
+  blossomcombat.admin:
+    description: Use /combatlog reload, tag, untag and status
+    default: op
+  blossomcombat.bypass:
+    description: Never get put in combat
+    default: false
+  blossomcombat.bypass.commands:
+    description: Use blocked commands while in combat
+    default: false

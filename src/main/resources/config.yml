@@ -1,0 +1,132 @@
+# ============================================================
+#   ⚔  BlossomCombat  -  Combat log system for Blossom SMP
+# ============================================================
+# Colours: &a, &c, &l etc.  Hex colours: &#FF69B4
+# Placeholders: {time} = seconds left, {player} = player name,
+#               {enemy} = who they are fighting
+# After editing, type  /combatlog reload  (no restart needed)
+
+# How many seconds you stay "in combat" after a hit.
+# The timer restarts every time you hit or get hit.
+combat-time: 20
+
+tagging:
+  # Tag the player who got hit
+  tag-victim: true
+  # Tag the player who did the hitting
+  tag-attacker: true
+  # Also put players in combat when a monster hits them
+  tag-on-mob-damage: false
+  # Creative and spectator players never get tagged
+  ignore-creative: true
+  # Worlds where combat tagging is turned off
+  disabled-worlds:
+    - example_world
+
+# What happens when someone leaves the game while in combat
+combat-log:
+  # Kill the player (they drop all their items, and the enemy gets the kill)
+  kill-player: true
+  # Also punish players who got kicked (false = kicks are forgiven, e.g. restarts)
+  punish-kicked: false
+  # Tell the whole server
+  broadcast: true
+  broadcast-message: "&#FF69B4☠ &f{player} &7logged out during combat and died!"
+  # Console commands to run on the logger ({player} works here). Leave as [] for none.
+  commands: []
+  #  - "eco take {player} 1000"
+
+# Take players out of combat when the person they were fighting dies
+untag-on-enemy-death: true
+
+# Commands while in combat
+commands:
+  block: true
+  # blacklist = block the commands in the list
+  # whitelist = block EVERY command except the ones in the list
+  mode: blacklist
+  list:
+    - spawn
+    - home
+    - homes
+    - sethome
+    - tpa
+    - tpahere
+    - tpaccept
+    - tpyes
+    - back
+    - rtp
+    - wild
+    - warp
+    - warps
+    - hub
+    - lobby
+    - ec
+    - enderchest
+    - ah
+    - auction
+    - shop
+    - sell
+    - trade
+    - vanish
+    - v
+    - fly
+    - god
+
+# Other things blocked while in combat
+restrictions:
+  # Stop elytra flying
+  block-elytra: true
+  # Stop /fly flying (creative players are not affected)
+  block-flight: true
+  # Block ender pearls completely
+  block-ender-pearls: false
+  # If pearls are allowed: cooldown in seconds after throwing one (0 = normal)
+  ender-pearl-cooldown: 0
+  # Block teleports (stops /home, /spawn, /tpa from other plugins)
+  block-teleports: true
+  # Which teleport types to block. ENDER_PEARL is not in here, so pearls still work.
+  blocked-teleport-causes:
+    - COMMAND
+    - PLUGIN
+
+# How the timer is shown
+display:
+  boss-bar:
+    enabled: true
+    text: "&#FF69B4&l⚔ COMBAT &8» &f{time}s &8» &7Don't log out!"
+    # PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+    color: PINK
+    # PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
+    style: PROGRESS
+  # Off by default because BlossomEconomy uses the action bar for item prices
+  action-bar:
+    enabled: false
+    text: "&#FF69B4⚔ Combat &8» &f{time}s"
+
+# Sounds (use Minecraft sound names, leave "" for no sound)
+sounds:
+  enter: "entity.player.attack.sweep"
+  leave: "entity.experience_orb.pickup"
+  blocked: "block.note_block.bass"
+
+messages:
+  prefix: "&#FF69B4&lCOMBAT &8» "
+  enter: "&cYou are now in combat with &f{enemy}&c! &7Do not log out."
+  enter-no-enemy: "&cYou are now in combat! &7Do not log out."
+  leave: "&aYou are no longer in combat. You can log out safely."
+  blocked-command: "&cYou can't use that command in combat! &7({time}s)"
+  blocked-elytra: "&cYou can't use an elytra in combat! &7({time}s)"
+  blocked-flight: "&cYou can't fly in combat! &7({time}s)"
+  blocked-pearl: "&cYou can't throw ender pearls in combat! &7({time}s)"
+  blocked-teleport: "&cYou can't teleport in combat! &7({time}s)"
+  status-in: "&cYou are in combat for &f{time}s&c."
+  status-out: "&aYou are not in combat."
+  status-other-in: "&f{player} &cis in combat for &f{time}s&c."
+  status-other-out: "&f{player} &ais not in combat."
+  admin-tagged: "&aPut &f{player} &ain combat."
+  admin-untagged: "&aTook &f{player} &aout of combat."
+  reloaded: "&aBlossomCombat config reloaded!"
+  no-permission: "&cYou don't have permission to do that."
+  player-not-found: "&cThat player isn't online."
+  usage: "&7Usage: &f/combatlog <reload|tag|untag|status> [player]"
